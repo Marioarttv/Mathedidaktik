@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS-7 Digital Escape Room Studie</title>
+    <meta name="description"
+        content="Eine Studie zur Förderung von Arduino-Interesse und technischer Selbstwirksamkeit durch Digital Escape Rooms">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Starfield Background -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Slide Progress Indicator -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Slide Navigation Dots -->
+    <nav class="slide-nav" id="slideNav">
+        <button class="nav-dot active" data-slide="0" aria-label="Folie 1"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Folie 2"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Folie 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Folie 4"></button>
+        <button class="nav-dot" data-slide="4" aria-label="Folie 5"></button>
+        <button class="nav-dot" data-slide="5" aria-label="Folie 6"></button>
+        <button class="nav-dot" data-slide="6" aria-label="Folie 7"></button>
+        <button class="nav-dot" data-slide="7" aria-label="Folie 8"></button>
+    </nav>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+    </div>
+
+    <!-- Keyboard Hint -->
+    <div class="keyboard-hint" id="keyboardHint">
+        <span>← →</span> Navigation &nbsp;|&nbsp; <span>F</span> Fullscreen
+    </div>
+
+    <!-- Slides Container -->
+    <main class="slides-container" id="slidesContainer">
+
+        <!-- SLIDE 1: Title -->
+        <section class="slide active" id="slide-0">
+            <div class="slide-content title-slide">
+                <div class="logo-container">
+                    <div class="logo-styled">
+                        <div class="logo-main">NEXUS-7</div>
+                        <div class="logo-tagline">LIVE FOR BOTH OF US.</div>
+                    </div>
+                </div>
+                <h1 class="main-title">Digital Escape Room Studie</h1>
+                <p class="subtitle">Eine Studie zur Förderung von Arduino-Interesse und technischer Selbstwirksamkeit
+                    bei Realschüler:innen</p>
+                <div class="authors">
+                    <div class="author">Mario Manzocco</div>
+                    <div class="author">Dennis Schuster</div>
+                    <div class="author">Lucas Freund</div>
+                    <div class="author">Harald Klat</div>
+                    <div class="author">Ivan Ocic</div>
+                </div>
+                <div class="start-hint">
+                    <i data-lucide="chevrons-right"></i>
+                    <span>Drücke → um zu starten</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Theoretische Verankerung -->
+        <section class="slide" id="slide-1">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-number">01</span>
+                    <h2>Theoretische Verankerung</h2>
+                </div>
+
+                <div class="two-column">
+                    <div class="column">
+                        <div class="problem-box">
+                            <div class="box-icon"><i data-lucide="alert-triangle"></i></div>
+                            <h3>Problemstellung</h3>
+                            <ul>
+                                <li>Geringe Motivation bei Schüler:innen gegenüber Programmierung</li>
+                                <li>Hohe Hemmschwelle bei Physical Computing</li>
+                                <li>Traditioneller Informatikunterricht oft abstrakt</li>
+                            </ul>
+                        </div>
+
+                        <div class="gap-box">
+                            <div class="box-icon"><i data-lucide="search"></i></div>
+                            <h3>Forschungslücke</h3>
+                            <p>Wenig empirische Untersuchungen zu Digital Escape Rooms mit echter Hardware-Anbindung
+                                (Arduino) im schulischen Kontext</p>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <h3 class="theory-title">Theoretischer Rahmen</h3>
+                        <div class="theory-grid">
+                            <div class="theory-card">
+                                <i data-lucide="gamepad-2"></i>
+                                <h4>Game-Based Learning</h4>
+                                <p>Spielerische Lernumgebungen fördern intrinsische Motivation</p>
+                                <cite>Prensky, 2001; Gee, 2003</cite>
+                            </div>
+                            <div class="theory-card">
+                                <i data-lucide="trophy"></i>
+                                <h4>Selbstwirksamkeit</h4>
+                                <p>Überzeugung, Herausforderungen meistern zu können</p>
+                                <cite>Bandura, 1977</cite>
+                            </div>
+                            <div class="theory-card">
+                                <i data-lucide="book-open"></i>
+                                <h4>Narrative Integration</h4>
+                                <p>Geschichten steigern Bedeutsamkeit und Transfer</p>
+                            </div>
+                            <div class="theory-card">
+                                <i data-lucide="lock"></i>
+                                <h4>Escape Rooms</h4>
+                                <p>Zeitdruck + Teamarbeit + Problemlösung</p>
+                                <cite>Nicholson, 2015</cite>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Fragestellung -->
+        <section class="slide" id="slide-2">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-number">02</span>
+                    <h2>Fragestellung</h2>
+                </div>
+
+                <div class="research-question">
+                    <i data-lucide="help-circle"></i>
+                    <blockquote>
+                        Inwiefern beeinflusst die Teilnahme am NEXUS-7 Digital Escape Room das Interesse an
+                        Arduino/Physical Computing sowie die technische Selbstwirksamkeitserwartung von
+                        Realschüler:innen?
+                    </blockquote>
+                </div>
+
+                <div class="hypotheses">
+                    <div class="hypothesis">
+                        <div class="hypothesis-badge">H1</div>
+                        <div class="hypothesis-content">
+                            <i data-lucide="trending-up"></i>
+                            <p>Der NEXUS-7 Escape Room führt zu einer <strong>signifikanten Steigerung des
+                                    Arduino-Interesses</strong> (Pre-Post-Vergleich)</p>
+                        </div>
+                    </div>
+
+                    <div class="hypothesis">
+                        <div class="hypothesis-badge">H2</div>
+                        <div class="hypothesis-content">
+                            <i data-lucide="zap"></i>
+                            <p>Der NEXUS-7 Escape Room führt zu einer <strong>Steigerung der technischen
+                                    Selbstwirksamkeitserwartung</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="hypothesis">
+                        <div class="hypothesis-badge">H3</div>
+                        <div class="hypothesis-content">
+                            <i data-lucide="book-heart"></i>
+                            <p>Die <strong>narrative Integration</strong> der Arduino-Komponenten korreliert positiv mit
+                                der Interessenssteigerung</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Methode -->
+        <section class="slide" id="slide-3">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-number">03</span>
+                    <h2>Methode</h2>
+                </div>
+
+                <div class="method-grid">
+                    <div class="method-card design">
+                        <div class="method-icon"><i data-lucide="flask-conical"></i></div>
+                        <h3>Design</h3>
+                        <ul>
+                            <li>Quasi-experimentelles Pre-Post-Design</li>
+                            <li>Ohne Kontrollgruppe</li>
+                            <li>Einmalige Intervention</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card sample">
+                        <div class="method-icon"><i data-lucide="users"></i></div>
+                        <h3>Stichprobe</h3>
+                        <div class="sample-stats">
+                            <div class="stat">
+                                <span class="stat-value">N = 16</span>
+                                <span class="stat-label">Realschüler:innen</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4 Gruppen</span>
+                                <span class="stat-label">à 4 Personen</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">14–16</span>
+                                <span class="stat-label">Jahre (Kl. 9/10)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="method-card intervention">
+                        <div class="method-icon"><i data-lucide="puzzle"></i></div>
+                        <h3>NEXUS-7 Stationen</h3>
+                        <div class="stations-grid">
+                            <span class="station">🖐️ Hand-Scanner</span>
+                            <span class="station">🎮 Simon Says</span>
+                            <span class="station">📡 Morse Code</span>
+                            <span class="station">🏷️ RFID Hunt</span>
+                            <span class="station">🌡️ Temperatur</span>
+                            <span class="station">💡 Lichtsensor</span>
+                            <span class="station">🔌 Kabel-Puzzle</span>
+                        </div>
+                        <p class="duration">⏱️ Dauer: 45–60 Minuten</p>
+                    </div>
+
+                    <div class="method-card instruments">
+                        <div class="method-icon"><i data-lucide="clipboard-list"></i></div>
+                        <h3>Instrumente</h3>
+                        <div class="instruments-list">
+                            <div class="instrument">
+                                <span class="instrument-label">Pre</span>
+                                <span>Demografie, Vorerfahrung, Interesse (5 Items), Selbstwirksamkeit (4 Items)</span>
+                            </div>
+                            <div class="instrument">
+                                <span class="instrument-label">Post</span>
+                                <span>Identische Items + Bewertung + offene Fragen</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Ergebnisse -->
+        <section class="slide" id="slide-4">
+            <div class="slide-content results-slide">
+                <div class="slide-header">
+                    <span class="slide-number">04</span>
+                    <h2>Ergebnisse</h2>
+                </div>
+
+                <div class="results-grid">
+                    <div class="chart-container">
+                        <h3><i data-lucide="bar-chart-3"></i> Interesse an Arduino (Pre vs. Post)</h3>
+                        <canvas id="interestChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3><i data-lucide="activity"></i> Selbstwirksamkeit (Pre vs. Post)</h3>
+                        <canvas id="efficacyChart"></canvas>
+                    </div>
+
+                    <div class="results-highlights">
+                        <div class="highlight-card success">
+                            <div class="highlight-value">4.3</div>
+                            <div class="highlight-label">Gesamtbewertung</div>
+                        </div>
+                        <div class="highlight-card success">
+                            <div class="highlight-value">14/16</div>
+                            <div class="highlight-label">Escape gelöst</div>
+                        </div>
+                        <div class="highlight-card accent">
+                            <div class="highlight-value">4.4</div>
+                            <div class="highlight-label">Story + Technik</div>
+                        </div>
+                    </div>
+
+                    <div class="qualitative-box">
+                        <h3><i data-lucide="message-square-quote"></i> Qualitative Befunde</h3>
+                        <div class="findings">
+                            <div class="finding positive">
+                                <span class="finding-icon">⭐</span>
+                                <span>Beliebt: Kabel-Puzzle, Simon Says, RFID-Hunt</span>
+                            </div>
+                            <div class="finding neutral">
+                                <span class="finding-icon">💬</span>
+                                <span>Kritik: Morse Code zu schwer, Sensoren unzuverlässig</span>
+                            </div>
+                            <div class="finding positive">
+                                <span class="finding-icon">🚀</span>
+                                <span>Wünsche: Roboter, Alarmanlage, Smart-Home</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Interpretation -->
+        <section class="slide" id="slide-5">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-number">05</span>
+                    <h2>Interpretation</h2>
+                </div>
+
+                <div class="interpretation-grid">
+                    <div class="hypothesis-results">
+                        <h3>Hypothesenprüfung</h3>
+                        <div class="hypo-result confirmed">
+                            <span class="hypo-badge">H1</span>
+                            <i data-lucide="check-circle"></i>
+                            <span>Tendenziell bestätigt – Moderate Interessenssteigerung</span>
+                        </div>
+                        <div class="hypo-result confirmed">
+                            <span class="hypo-badge">H2</span>
+                            <i data-lucide="check-circle"></i>
+                            <span>Tendenziell bestätigt – Selbstwirksamkeit gestiegen</span>
+                        </div>
+                        <div class="hypo-result confirmed">
+                            <span class="hypo-badge">H3</span>
+                            <i data-lucide="check-circle"></i>
+                            <span>Bestätigt – Narrative als bereichernd wahrgenommen</span>
+                        </div>
+                    </div>
+
+                    <div class="explanations">
+                        <h3>Erklärungsansätze</h3>
+                        <div class="explanation-cards">
+                            <div class="explanation">
+                                <i data-lucide="hand"></i>
+                                <h4>Hands-on-Erfahrung</h4>
+                                <p>Direkter Hardware-Kontakt senkt Hemmschwelle</p>
+                            </div>
+                            <div class="explanation">
+                                <i data-lucide="party-popper"></i>
+                                <h4>Erfolgserlebnisse</h4>
+                                <p>Gelöste Rätsel stärken Selbstwirksamkeit</p>
+                            </div>
+                            <div class="explanation">
+                                <i data-lucide="users-round"></i>
+                                <h4>Teamarbeit</h4>
+                                <p>Gemeinsames Problemlösen fördert positives Erleben</p>
+                            </div>
+                            <div class="explanation">
+                                <i data-lucide="timer"></i>
+                                <h4>Gamification</h4>
+                                <p>Zeitdruck und Story erhöhen Engagement</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="implications">
+                        <h3><i data-lucide="lightbulb"></i> Pädagogische Implikationen</h3>
+                        <ul>
+                            <li>Digital Escape Rooms als <strong>niedrigschwelliger Einstieg</strong> in Physical
+                                Computing</li>
+                            <li>Kombination aus <strong>Narration und Technik</strong> besonders wirksam</li>
+                            <li><strong>Differenzierung</strong> durch variable Schwierigkeitsgrade möglich</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Grenzen -->
+        <section class="slide" id="slide-6">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-number">06</span>
+                    <h2>Grenzen der Studie</h2>
+                </div>
+
+                <div class="limitations-grid">
+                    <div class="limitation-card">
+                        <i data-lucide="users"></i>
+                        <h4>Kleine Stichprobe</h4>
+                        <p>N = 16 – eingeschränkte statistische Power</p>
+                    </div>
+
+                    <div class="limitation-card">
+                        <i data-lucide="git-branch"></i>
+                        <h4>Keine Kontrollgruppe</h4>
+                        <p>Kein Vergleich mit traditionellem Unterricht</p>
+                    </div>
+
+                    <div class="limitation-card">
+                        <i data-lucide="shuffle"></i>
+                        <h4>Keine Randomisierung</h4>
+                        <p>Selbstselektion der Gruppen möglich</p>
+                    </div>
+
+                    <div class="limitation-card">
+                        <i data-lucide="clock"></i>
+                        <h4>Kurzfristige Messung</h4>
+                        <p>Nur Post-Test, kein Follow-up</p>
+                    </div>
+
+                    <div class="limitation-card">
+                        <i data-lucide="smile"></i>
+                        <h4>Soziale Erwünschtheit</h4>
+                        <p>Möglicherweise positiv verzerrte Antworten</p>
+                    </div>
+
+                    <div class="limitation-card">
+                        <i data-lucide="sparkles"></i>
+                        <h4>Hawthorne-Effekt</h4>
+                        <p>Neuheit könnte Ergebnisse verzerren</p>
+                    </div>
+
+                    <div class="limitation-card warning">
+                        <i data-lucide="database"></i>
+                        <h4>Synthetische Daten</h4>
+                        <p>Für Seminarkontext simuliert</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: Künftige Forschung -->
+        <section class="slide" id="slide-7">
+            <div class="slide-content future-slide">
+                <div class="slide-header">
+                    <span class="slide-number">07</span>
+                    <h2>Künftige Forschung</h2>
+                </div>
+
+                <div class="future-grid">
+                    <div class="future-section">
+                        <div class="section-icon"><i data-lucide="microscope"></i></div>
+                        <h3>Methodische Erweiterungen</h3>
+                        <ul>
+                            <li>Größere Stichprobe (N ≥ 30)</li>
+                            <li>Kontrollgruppendesign</li>
+                            <li>Follow-up nach 4–8 Wochen</li>
+                        </ul>
+                    </div>
+
+                    <div class="future-section">
+                        <div class="section-icon"><i data-lucide="layers"></i></div>
+                        <h3>Inhaltliche Erweiterungen</h3>
+                        <ul>
+                            <li>Vergleich: mit/ohne Narration</li>
+                            <li>Moderatorvariablen untersuchen</li>
+                            <li>Qualitative Interviews</li>
+                            <li>Transfer auf andere Fächer</li>
+                        </ul>
+                    </div>
+
+                    <div class="future-section">
+                        <div class="section-icon"><i data-lucide="wrench"></i></div>
+                        <h3>Praktische Entwicklung</h3>
+                        <ul>
+                            <li>Lehrerhandbuch zur Replikation</li>
+                            <li>Anpassung für verschiedene Klassenstufen</li>
+                            <li>Integration in regulären Unterricht</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="thank-you">
+                    <h2>Vielen Dank für Ihre Aufmerksamkeit!</h2>
+                    <p class="tagline">"Live For Both Of Us"</p>
+                    <div class="contact">
+                        <span>Mario Manzocco</span>
+                        <span>Dennis Schuster</span>
+                        <span>Lucas Freund</span>
+                        <span>Harald Klat</span>
+                        <span>Ivan Ocic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
