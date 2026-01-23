@@ -1043,6 +1043,18 @@ body:not(.first-slide) .keyboard-hint {
     border-color: rgba(139, 92, 246, 0.3);
 }
 
+.highlight-card.effect-size {
+    border-color: rgba(249, 158, 11, 0.4);
+    background: rgba(249, 158, 11, 0.08);
+}
+
+.highlight-card.effect-size .highlight-value {
+    background: linear-gradient(135deg, var(--color-warning) 0%, #ef4444 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 2rem;
+}
+
 .highlight-value {
     font-family: var(--font-display);
     font-size: 2.5rem;
