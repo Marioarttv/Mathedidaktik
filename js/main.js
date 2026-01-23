@@ -6,7 +6,7 @@
    4. Pre-hide content elements before slide becomes visible
 */
 
-const CONFIG = { totalSlides: 8, animationDuration: 0.6, staggerDelay: 0.08, starCount: 150 };
+const CONFIG = { totalSlides: 9, animationDuration: 0.6, staggerDelay: 0.08, starCount: 150 };
 let currentSlide = 0;
 let isAnimating = false;
 
