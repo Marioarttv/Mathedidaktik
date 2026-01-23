@@ -66,13 +66,14 @@ function initCharts() {
     });
 
     // Efficacy Chart - Real data from xlsx
+    // Note: "Nicht überfordert" is inverted (6 - raw value) so higher = better
     efficacyChart = new Chart(efficacyCtx, {
         type: 'bar',
         data: {
             labels: ['Zutrauen (d=0.21)', 'Lernen (d=0.51)', 'Nicht überfordert (d=0.26)'],
             datasets: [
-                { label: 'Pre', data: [2.69, 4.00, 2.12], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
-                { label: 'Post', data: [2.94, 4.44, 2.38], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
+                { label: 'Pre', data: [2.69, 4.00, 3.12], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
+                { label: 'Post', data: [2.94, 4.44, 3.37], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
             ]
         },
         options: {
