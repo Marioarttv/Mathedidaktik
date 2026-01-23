@@ -262,6 +262,10 @@
                                 <span>Identische Items + Bewertung + offene Fragen</span>
                             </div>
                         </div>
+                        <a href="Fragebogen.docx" download class="download-btn">
+                            <i data-lucide="download"></i>
+                            <span>Fragebogen herunterladen</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -275,15 +279,45 @@
                     <h2>Ergebnisse</h2>
                 </div>
 
+                <div class="methodology-box">
+                    <i data-lucide="info"></i>
+                    <div class="methodology-content">
+                        <strong>Datenerhebung:</strong> Alle N=16 Teilnehmenden bewerteten die Items auf einer
+                        5-stufigen Likert-Skala (1 = stimme gar nicht zu, 5 = stimme voll zu) jeweils <em>vor</em> und
+                        <em>nach</em> der Escape Room Intervention. Die Balken zeigen die Mittelwerte (M) im
+                        Pre-Post-Vergleich.
+                    </div>
+                </div>
+
                 <div class="results-grid">
                     <div class="chart-container">
                         <h3><i data-lucide="bar-chart-3"></i> Interesse an Arduino (Pre vs. Post)</h3>
                         <canvas id="interestChart"></canvas>
+                        <div class="question-items">
+                            <div class="question-item"><span class="q-num">1</span> Ich interessiere mich für Elektronik
+                                und technische Geräte.</div>
+                            <div class="question-item"><span class="q-num">2</span> Ich würde gerne interaktive Projekte
+                                mit echten Bauteilen umsetzen.</div>
+                            <div class="question-item"><span class="q-num">3</span> Ich würde gerne lernen, wie man
+                                einen Arduino programmiert.</div>
+                            <div class="question-item"><span class="q-num">4</span> Ich könnte mir vorstellen, in meiner
+                                Freizeit an Elektronikprojekten zu arbeiten.</div>
+                            <div class="question-item"><span class="q-num">5</span> Ich habe das Gefühl, dass Technik
+                                etwas für mich ist.</div>
+                        </div>
                     </div>
 
                     <div class="chart-container">
                         <h3><i data-lucide="activity"></i> Selbstwirksamkeit (Pre vs. Post)</h3>
                         <canvas id="efficacyChart"></canvas>
+                        <div class="question-items">
+                            <div class="question-item"><span class="q-num">1</span> Ich traue mir zu, ein einfaches
+                                Programm für einen Arduino zu schreiben.</div>
+                            <div class="question-item"><span class="q-num">2</span> Ich bin überzeugt, dass ich lernen
+                                kann, wie Arduino funktioniert.</div>
+                            <div class="question-item"><span class="q-num">3</span> Ich fühle mich bei technischen
+                                Aufgaben oft überfordert. (invertiert)</div>
+                        </div>
                     </div>
 
                     <div class="results-highlights">

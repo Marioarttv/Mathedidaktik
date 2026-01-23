@@ -877,11 +877,107 @@ body:not(.first-slide) .keyboard-hint {
     min-width: 40px;
 }
 
+/* Download Button */
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--gradient-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.download-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Question Items */
+.question-items {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.question-item {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    padding: var(--space-xs) 0;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    line-height: 1.4;
+}
+
+.q-num {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-aurora-purple);
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+    font-size: 0.6rem;
+    flex-shrink: 0;
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    RESULTS SLIDE (Slide 5)
    ───────────────────────────────────────────────────────────────────────────── */
 .results-slide .slide-header {
+    margin-bottom: var(--space-md);
+}
+
+/* Methodology Explanation */
+.methodology-box {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
     margin-bottom: var(--space-lg);
+}
+
+.methodology-box>svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-aurora-purple);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.methodology-content {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.methodology-content strong {
+    color: var(--color-aurora-purple);
+}
+
+.methodology-content em {
+    color: var(--color-text-primary);
+    font-style: normal;
+    font-weight: 500;
 }
 
 .results-grid {
