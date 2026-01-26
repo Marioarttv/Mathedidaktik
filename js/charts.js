@@ -13,12 +13,22 @@ const chartColors = {
     text: 'rgba(255, 255, 255, 0.7)'
 };
 
-// Cohen's d values calculated from raw data (pooled SD)
-// Interest items:
-//   Elektronik: d=0.14 (small), Interaktiv: d=0.11 (small), Arduino: d=0.06 (negligible)
-//   Freizeit: d=0.10 (small), Technik: d=0.14 (small)
-// Efficacy items:
-//   Zutrauen: d=0.21 (small), Lernen: d=0.51 (medium), Überfordert: d=-0.26 (small, inverted)
+// Item-Level Statistics calculated from NEXUS7_Escape_Room_Datensatz.xlsx
+// 
+// INTEREST SCALE (Pre α=0.80, Post α=0.76)
+// Item                    Cohen's d   Pre r    Post r   α if deleted (Pre/Post)
+// Elektronik              d=0.14      r=0.76   r=0.72   α=0.70/0.63
+// Interaktiv              d=0.11      r=0.51   r=0.49   α=0.79/0.72
+// Arduino lernen          d=0.06      r=0.42   r=0.38   α=0.81/0.76
+// Freizeit                d=0.10      r=0.71   r=0.53   α=0.72/0.71
+// Technik fuer mich       d=0.14      r=0.52   r=0.50   α=0.78/0.72
+//
+// EFFICACY SCALE (Pre α=0.54, Post α=0.53)
+// Item                    Cohen's d   Pre r    Post r   α if deleted (Pre/Post)
+// Zutrauen                d=0.21      r=0.39   r=0.30   α=0.42/0.48
+// Lernen koennte          d=0.51      r=0.32   r=0.40   α=0.48/0.40
+// Probleme loesen         d=0.24      r=0.28   r=0.44   α=0.51/0.35
+// Ueberfordert (inv)      d=0.26      r=0.34   r=0.17   α=0.47/0.58
 
 Chart.defaults.color = chartColors.text;
 Chart.defaults.font.family = "'Inter', sans-serif";
@@ -32,12 +42,11 @@ function initCharts() {
     const efficacyCtx = document.getElementById('efficacyChart');
     if (!interestCtx || !efficacyCtx) return;
 
-    // Interest Chart - Real data from xlsx
-    // Labels include Cohen's d values
+    // Interest Chart - Labels now include both d (effect size) and r (item-total correlation)
     interestChart = new Chart(interestCtx, {
         type: 'bar',
         data: {
-            labels: ['Elektronik\nd=0.14', 'Interaktiv\nd=0.11', 'Arduino\nd=0.06', 'Freizeit\nd=0.10', 'Technik\nd=0.14'],
+            labels: ['Elektronik\nd=0.14 | r=.76', 'Interaktiv\nd=0.11 | r=.51', 'Arduino\nd=0.06 | r=.42', 'Freizeit\nd=0.10 | r=.71', 'Technik\nd=0.14 | r=.52'],
             datasets: [
                 { label: 'Pre', data: [2.88, 3.00, 3.13, 2.81, 3.13], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
                 { label: 'Post', data: [3.06, 3.13, 3.19, 2.94, 3.31], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
@@ -53,24 +62,30 @@ function initCharts() {
                     callbacks: {
                         afterBody: function (context) {
                             const dValues = [0.14, 0.11, 0.06, 0.10, 0.14];
-                            return "Cohen's d: " + dValues[context[0].dataIndex].toFixed(2) + " (klein)";
+                            const rValuesPre = [0.76, 0.51, 0.42, 0.71, 0.52];
+                            const rValuesPost = [0.72, 0.49, 0.38, 0.53, 0.50];
+                            const i = context[0].dataIndex;
+                            return [
+                                "Cohen's d: " + dValues[i].toFixed(2) + " (klein)",
+                                "Item-Total r: Pre=" + rValuesPre[i].toFixed(2) + ", Post=" + rValuesPost[i].toFixed(2)
+                            ];
                         }
                     }
                 }
             },
             scales: {
                 y: { beginAtZero: true, max: 5, grid: { color: chartColors.grid }, ticks: { stepSize: 1 } },
-                x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+                x: { grid: { display: false }, ticks: { font: { size: 8 } } }
             }
         }
     });
 
-    // Efficacy Chart - Real data from xlsx
+    // Efficacy Chart - Labels now include both d and r values
     // Note: "Nicht überfordert" is inverted (6 - raw value) so higher = better
     efficacyChart = new Chart(efficacyCtx, {
         type: 'bar',
         data: {
-            labels: ['Zutrauen (d=0.21)', 'Lernen (d=0.51)', 'Nicht überfordert (d=0.26)'],
+            labels: ['Zutrauen (d=0.21 | r=.39)', 'Lernen (d=0.51 | r=.32)', 'Nicht überfordert (d=0.26 | r=.34)'],
             datasets: [
                 { label: 'Pre', data: [2.69, 4.00, 3.12], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
                 { label: 'Post', data: [2.94, 4.44, 3.37], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
@@ -88,7 +103,13 @@ function initCharts() {
                         afterBody: function (context) {
                             const dValues = [0.21, 0.51, 0.26];
                             const labels = ['klein', 'mittel', 'klein'];
-                            return "Cohen's d: " + dValues[context[0].dataIndex].toFixed(2) + " (" + labels[context[0].dataIndex] + ")";
+                            const rValuesPre = [0.39, 0.32, 0.34];
+                            const rValuesPost = [0.30, 0.40, 0.17];
+                            const i = context[0].dataIndex;
+                            return [
+                                "Cohen's d: " + dValues[i].toFixed(2) + " (" + labels[i] + ")",
+                                "Item-Total r: Pre=" + rValuesPre[i].toFixed(2) + ", Post=" + rValuesPost[i].toFixed(2)
+                            ];
                         }
                     }
                 }

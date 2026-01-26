@@ -1052,6 +1052,30 @@ body:not(.first-slide) .keyboard-hint {
     color: var(--color-aurora-purple);
 }
 
+/* Reliability Badges (Cronbach's Alpha) */
+.reliability-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    margin-left: auto;
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+}
+
+.reliability-badge.good {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--color-success);
+}
+
+.reliability-badge.moderate {
+    background: rgba(249, 158, 11, 0.15);
+    border: 1px solid rgba(249, 158, 11, 0.3);
+    color: var(--color-warning);
+}
+
 .chart-container canvas {
     max-height: 200px;
 }
