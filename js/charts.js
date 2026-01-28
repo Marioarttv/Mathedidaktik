@@ -23,12 +23,10 @@ const chartColors = {
 // Freizeit                d=0.10      r=0.71   r=0.53   α=0.72/0.71
 // Technik fuer mich       d=0.14      r=0.52   r=0.50   α=0.78/0.72
 //
-// EFFICACY SCALE (Pre α=0.54, Post α=0.53)
-// Item                    Cohen's d   Pre r    Post r   α if deleted (Pre/Post)
-// Zutrauen                d=0.21      r=0.39   r=0.30   α=0.42/0.48
-// Lernen koennte          d=0.51      r=0.32   r=0.40   α=0.48/0.40
-// Probleme loesen         d=0.24      r=0.28   r=0.44   α=0.51/0.35
-// Ueberfordert (inv)      d=0.26      r=0.34   r=0.17   α=0.47/0.58
+// EFFICACY SCALE (2 items: Pre α=0.53, Post α=0.59)
+// Item                    Cohen's d   Pre r    Post r
+// Zutrauen                d=0.21      r=0.37   r=0.45
+// Lernen koennte          d=0.51      r=0.37   r=0.45
 
 Chart.defaults.color = chartColors.text;
 Chart.defaults.font.family = "'Inter', sans-serif";
@@ -80,15 +78,14 @@ function initCharts() {
         }
     });
 
-    // Efficacy Chart - Labels now include both d and r values
-    // Note: "Nicht überfordert" is inverted (6 - raw value) so higher = better
+    // Efficacy Chart - 2-item scale: Zutrauen + Lernen
     efficacyChart = new Chart(efficacyCtx, {
         type: 'bar',
         data: {
-            labels: ['Zutrauen (d=0.21 | r=.39)', 'Lernen (d=0.51 | r=.32)', 'Nicht überfordert (d=0.26 | r=.34)'],
+            labels: ['Zutrauen (d=0.21 | r=.37)', 'Lernen (d=0.51 | r=.45)'],
             datasets: [
-                { label: 'Pre', data: [2.69, 4.00, 3.12], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
-                { label: 'Post', data: [2.94, 4.44, 3.37], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
+                { label: 'Pre', data: [2.69, 4.00], backgroundColor: chartColors.pre, borderColor: chartColors.preBorder, borderWidth: 2, borderRadius: 6 },
+                { label: 'Post', data: [2.94, 4.44], backgroundColor: chartColors.post, borderColor: chartColors.postBorder, borderWidth: 2, borderRadius: 6 }
             ]
         },
         options: {
@@ -101,14 +98,13 @@ function initCharts() {
                 tooltip: {
                     callbacks: {
                         afterBody: function (context) {
-                            const dValues = [0.21, 0.51, 0.26];
-                            const labels = ['klein', 'mittel', 'klein'];
-                            const rValuesPre = [0.39, 0.32, 0.34];
-                            const rValuesPost = [0.30, 0.40, 0.17];
+                            const dValues = [0.21, 0.51];
+                            const labels = ['klein', 'mittel'];
+                            const rValues = [0.37, 0.45];
                             const i = context[0].dataIndex;
                             return [
                                 "Cohen's d: " + dValues[i].toFixed(2) + " (" + labels[i] + ")",
-                                "Item-Total r: Pre=" + rValuesPre[i].toFixed(2) + ", Post=" + rValuesPost[i].toFixed(2)
+                                "Item-Korrelation r = " + rValues[i].toFixed(2)
                             ];
                         }
                     }
